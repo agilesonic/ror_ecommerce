@@ -62,10 +62,8 @@ ActiveRecord::Schema.define(:version => 20121123184227) do
     t.integer  "country_id"
   end
 
-  add_index "addresses", ["active"], :name => "index_addresses_on_active"
   add_index "addresses", ["addressable_id"], :name => "index_addresses_on_addressable_id"
   add_index "addresses", ["addressable_type"], :name => "index_addresses_on_addressable_type"
-  add_index "addresses", ["country_id"], :name => "index_addresses_on_country_id"
   add_index "addresses", ["state_id"], :name => "index_addresses_on_state_id"
 
   create_table "batches", :force => true do |t|
@@ -128,11 +126,9 @@ ActiveRecord::Schema.define(:version => 20121123184227) do
     t.string  "name"
     t.string  "abbreviation",     :limit => 5
     t.integer "shipping_zone_id"
-    t.boolean "active",                        :default => false, :null => false
   end
 
   add_index "countries", ["name"], :name => "index_countries_on_name"
-  add_index "countries", ["shipping_zone_id"], :name => "index_countries_on_shipping_zone_id"
 
   create_table "coupons", :force => true do |t|
     t.string   "type",                                                           :null => false
@@ -339,7 +335,7 @@ ActiveRecord::Schema.define(:version => 20121123184227) do
   create_table "products", :force => true do |t|
     t.string   "name",                                    :null => false
     t.text     "description"
-    t.string   "product_keywords"
+    t.text     "product_keywords"
     t.integer  "product_type_id",                         :null => false
     t.integer  "prototype_id"
     t.integer  "shipping_category_id",                    :null => false

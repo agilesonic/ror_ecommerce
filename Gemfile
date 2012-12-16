@@ -19,6 +19,9 @@ gem 'compass-rails'
 #  gem 'dalli', '~> 1.0.2'
 
 gem "friendly_id", "~> 3.3"
+gem 'execjs'
+gem 'libv8', '~> 3.11.8'
+gem 'therubyracer'
 gem 'haml',  ">= 3.0.13"#, ">= 3.0.4"#, "2.2.21"#,
 gem "jquery-rails"
 gem "rails_config"
@@ -34,8 +37,8 @@ gem 'nokogiri', '~> 1.5.0'
 gem 'paperclip', '~> 2.8.0'
 gem 'prawn', '~> 0.12.0'
 
-gem "rails3-generators", :git => "https://github.com/neocoin/rails3-generators.git"
-gem 'rmagick',    :require => 'RMagick'
+gem "rails3-generators"#, :git => "https://github.com/neocoin/rails3-generators.git"
+# gem 'rmagick',    :require => 'RMagick'
 
 gem 'rake', '~> 0.9.2'
 gem 'state_machine', '~> 1.1.2'
