@@ -18,9 +18,11 @@ class Admin::OverviewsController < ApplicationController
                        :password => @password,
                        :password_confirmation => @password
                        )
-      @user.role_ids = Role.all.collect{|r| r.id }
+#      @user.role_ids = Role.all.collect{|r| r.id }
       if @user.active? || @user.activate!
         @user.save
+	@user.role_ids = Role.all.collect{|r| r.id}
+	@user.user_roles.each {|r| r.user_id = @user.id}
         @user_session = UserSession.new(:email => @user.email, :password => @password)
         @user_session.save
       end
