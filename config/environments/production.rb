@@ -1,98 +1,48 @@
 Hadean::Application.configure do
   # Settings specified here will take precedence over those in config/environment.rb
 
-  config.force_ssl = false
+  # Raise exception on mass assignment protection for Active Record models
+  config.active_record.mass_assignment_sanitizer = :strict
 
-  # The production environment is meant for finished, "live" apps.
-  # Code is not reloaded between requests
-  config.cache_classes = true
+  # Log the query plan for queries taking more than this (works
+  # with SQLite, MySQL, and PostgreSQL)
+  config.active_record.auto_explain_threshold_in_seconds = 0.5
 
-  # Compress JavaScripts and CSS
-  config.assets.compress = true
+  # In the development environment your application's code is reloaded on
+  # every request.  This slows down response time but is perfect for development
+  # since you don't have to restart the webserver when you make code changes.
+  config.cache_classes = false
 
-  # Don't fallback to assets pipeline if a precompiled asset is missed
-  config.assets.compile = false
+  # Log error messages when you accidentally call methods on nil.
+  config.whiny_nils = true
 
-  # Generate digests for assets URLs
-  config.assets.digest = true
+  # Do not compress assets
+  config.assets.compress = false
 
-  # config.assets.precompile += %w( *.css *.js )
+  # Expands the lines which load the assets
+  config.assets.debug = true
 
-  config.assets.precompile += %w( *.js )
-  config.assets.precompile += [ 'admin.css',
-                                'admin/app.css',
-                                'admin/foundation.css',
-                                'admin/help.css',
-                                'admin/ie.css',
-                                'autocomplete.css',
-                                'chosen.css',
-                                'generic_dialog.css',
-                                'home_page.css',
-                                'ie.css',
-                                'ie6.css',
-                                'login.css',
-                                'main.css',
-                                'markdown.css',
-                                'outfits.css',
-                                'print.css',
-                                'product_page.css',
-                                'products_page.css',
-                                'screen.css',
-                                'shopping_cart_page.css',
-                                'signup.css',
-                                'sprite.css',
-                                'store_credits.css',
-                                'stylist_admin.css',
-                                'stylist_cart.css',
-                                'tables.css',
-                                'cupertino/jquery-ui-1.8.12.custom.css',
-                                'modstyles.css',
-                                'scaffold.css']
-
-  # Full error reports are disabled and caching is turned on
-  config.consider_all_requests_local       = false
+  # Show full error reports and disable caching
+  config.consider_all_requests_local       = true
+  #config.action_view.debug_rjs             = true
   config.action_controller.perform_caching = true
 
-  # Specifies the header that your server uses for sending files
-  config.action_dispatch.x_sendfile_header = "X-Sendfile"
+  # Don't care if the mailer can't send
+  config.action_mailer.raise_delivery_errors = false
 
-  # For nginx:
-  # config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect'
+  # Print deprecation notices to the Rails logger
+  config.active_support.deprecation = :log
 
-  # If you have no front-end server that supports something like X-Sendfile,
-  # just comment this out and Rails will serve the files
+  # Only use best-standards-support built into browsers
+  config.action_dispatch.best_standards_support = :builtin
+
   config.cache_store = :memory_store
+
   #config.cache_store = :dalli_store
-
-  # See everything in the log (default is :info)
-  # config.log_level = :debug
-
-  # Use a different logger for distributed setups
-  # config.logger = SyslogLogger.new
-
-  # Use a different cache store in production
-  # config.cache_store = :mem_cache_store
-
-  # Disable Rails's static asset server
-  # In production, Apache or nginx will already do this
-  config.serve_static_assets = false
-
-  # Enable serving of images, stylesheets, and javascripts from an asset server
-  # config.action_controller.asset_host = "http://assets.example.com"
-
-  config.action_mailer.default_url_options = { :host => 'rore.example.com' }
-  # Disable delivery errors, bad email addresses will be ignored
-  # config.action_mailer.raise_delivery_errors = false
-
-  # Enable threaded mode
-  # config.threadsafe!
-
-  # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
-  # the I18n.default_locale when a translation can not be found)
-  config.i18n.fallbacks = true
-
-  # Send deprecation notices to registered listeners
-  config.active_support.deprecation = :notify
+  #config.cache_store = :redis_store
+  # Don't care if the mailer can't send
+  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.default_url_options = { :host => 'localhost:3000' }
 
 
   config.after_initialize do
@@ -107,23 +57,23 @@ Hadean::Application.configure do
     #  :signature  => Settings.paypal.signature
     #)
 
-    ::GATEWAY = ActiveMerchant::Billing::AuthorizeNetGateway.new(
-      :login    => Settings.authnet.login,
-      :password => Settings.authnet.login,
-      :test     => true
-    )
-
-    ::CIM_GATEWAY = ActiveMerchant::Billing::AuthorizeNetCimGateway.new(
-      :login    => Settings.authnet.login,
-      :password => Settings.authnet.password,
-      :test     => true
-    )
-
+#    ::GATEWAY = ActiveMerchant::Billing::AuthorizeNetGateway.new(
+#      :login    => Settings.authnet.login
+#      :password => Settings.authnet.password
+#      :test     => true   #  Make sure this is pointing to the authnet test server.  This needs to be uncommented to test capturing a payment.
+#    )
+#
+#    ::CIM_GATEWAY = ActiveMerchant::Billing::AuthorizeNetCimGateway.new(
+#      :login    => Settings.authnet.login
+#      :password => Settings.authnet.password
+#      :test     => true   #  Make sure this is pointing to the authnet test server.  This needs to be uncommented to test capturing a payment.
+#    )
     #::GATEWAY = ActiveMerchant::Billing::BraintreeGateway.new(
     #  :login     => Settings.braintree.login
     #  :password  => Settings.braintree.password
     #)
   end
+
   PAPERCLIP_STORAGE_OPTS = {  :styles => {:mini => '48x48>',
                                           :small => '100x100>',
                                           :product => '320x320>',
